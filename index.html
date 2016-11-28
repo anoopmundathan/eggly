@@ -5,6 +5,7 @@
 		 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		 <meta http-equiv="x-ua-compatible" content="ie=edge">
 		 <title>Eggly</title>
+		 <link rel="stylesheet" href="styles/main.css">
 	 </head>
 	<body ng-app="eggApp">
 		
@@ -12,12 +13,12 @@
 		
 		<!--Home-->
 			
-			<a href="" ng-click="unfilterCategory()">Home</a>
+			<a href="" ng-click="setCurrentCategory(null)">Home</a>
 
 		<!-- Bookmark -->
 		
 			<ul>
-				<li ng-repeat="bookmark in bookmarks | filter:selectedCategory.name">
+				<li ng-repeat="bookmark in bookmarks | filter:{category:currentCategory.name}">
 					{{bookmark.title}}
 				</li>
 			</ul>
@@ -26,9 +27,11 @@
 		
 			<ul>
 				<li ng-repeat="category in categories">
-					<a href="" ng-click="filterCategory(category)">{{category.name}}</a>
+					<a href="" ng-click="setCurrentCategory(category)" 
+					ng-class="{'active': isCurrentCategorySelected(category)}">{{category.name}}</a>
 				</li>
 			</ul>
+
 		</div>
 		
 		<script src="scripts/vendor/angular.min.js"></script>

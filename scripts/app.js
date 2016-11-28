@@ -17,15 +17,18 @@ angular.module('eggApp', [])
 		{"id": 4, "title": "Travis", "url": "https://travis.com", "category": "Deployment"}
 	];
 
-	function filterCategory(category) {
-		$scope.selectedCategory = category;
+	$scope.currentCategory = null;
+
+	function setCurrentCategory(category) {
+		$scope.currentCategory = category;
 	}
 
-	function unfilterCategory() {
-		$scope.selectedCategory = null;
+	function isCurrentCategorySelected(category) {
+		return $scope.currentCategory !== null && category.name === $scope.currentCategory.name;
 	}
 
-	$scope.filterCategory = filterCategory;
-	$scope.unfilterCategory = unfilterCategory;
+	$scope.setCurrentCategory = setCurrentCategory;
+
+	$scope.isCurrentCategorySelected = isCurrentCategorySelected;
 
 });
