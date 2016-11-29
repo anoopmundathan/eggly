@@ -9,32 +9,42 @@
 	 </head>
 	<body ng-app="eggApp">
 		
-		<div ng-controller="MainCtrl">
-		
-		<!--Home-->
+		<div class="container" ng-controller="MainCtrl">
+
+			<!--Home-->
+			<div class="home">
+				<a href="" ng-click="setCurrentCategory(null)">Home</a>	
+			</div>
+
+			<div class="box">
+			 
+			<!-- Categories -->
+			<div class="category">
+				<ul>
+					<li ng-repeat="category in categories">
+						<a href="" ng-click="setCurrentCategory(category)" 
+						ng-class="{'active': isCurrentCategorySelected(category)}">{{category.name}}</a>
+					</li>
+				</ul>
+			</div> <!-- End of box1 -->
+
+			<!-- Bookmark -->
+			<div class="bookmark">
+				<ul>
+					<li ng-repeat="bookmark in bookmarks | filter:{category:currentCategory.name}">
+						{{bookmark.title}}
+					</li>
+				</ul>
+			</div> <!-- End of box2 -->
 			
-			<a href="" ng-click="setCurrentCategory(null)">Home</a>
-
-		<!-- Bookmark -->
-		
-			<ul>
-				<li ng-repeat="bookmark in bookmarks | filter:{category:currentCategory.name}">
-					{{bookmark.title}}
-				</li>
-			</ul>
-		
-		<!-- Categories -->
-		
-			<ul>
-				<li ng-repeat="category in categories">
-					<a href="" ng-click="setCurrentCategory(category)" 
-					ng-class="{'active': isCurrentCategorySelected(category)}">{{category.name}}</a>
-				</li>
-			</ul>
-
+		</div> <!-- End of container -->
 		</div>
+		
+		
+		
 		
 		<script src="scripts/vendor/angular.min.js"></script>
 		<script src="scripts/app.js"></script>
+
 	</body>
  </html>
