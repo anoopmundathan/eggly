@@ -31,7 +31,7 @@
 			<div class="bookmark">
 				<ul>
 					<li ng-repeat="bookmark in bookmarks | filter:{category:currentCategory.name}">
-						<button ng-click="editCategory()">edit</button>
+						<button ng-click="editCategory(bookmark)">edit</button>
 						<label for=""> {{bookmark.title}}</label>
 					</li>
 				</ul>
@@ -42,13 +42,25 @@
 					<a href="" ng-show="currentCategory" ng-click="createCategory()">+ Create Bookmark</a>
 				</div>
 				
-				<!-- New Book Mark -->
+				<!-- New Bookmark -->
 				<div ng-if="creatingCategory">
 					<label for="">Title</label>
 					<input type="text">
 					<label for="">URL</label>
 					<input type="text">
+					<button>Create</button>
+					<a href="" ng-click="cancelCreating">Cancel</a>
 				</div>
+
+				<div ng-if="editingCategory">
+					<label for="">Title</label><br>
+					<input type="text" ng-model="bookmark.title">
+					<label for="">URL</label>
+					<input type="text" ng-model="bookmark.url">
+					<button>Edit</button>
+					<button>Cancel</button>
+				</div>
+
 			</div> <!-- End of bookmark -->
 			
 		</div> <!-- End of box -->

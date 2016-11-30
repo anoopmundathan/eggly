@@ -31,14 +31,21 @@ angular.module('eggApp', [])
 		return $scope.editingCategory;
 	}
 
-	function editCategory() {
+	function editCategory(bookmark) {
 		$scope.editingCategory = true;
 		$scope.creatingCategory = false;
+
+		$scope.bookmark = bookmark;
 	}
 
 	function createCategory() {
 		$scope.creatingCategory = true;
 		$scope.editingCategory = false;
+	}
+
+	function cancelCreating() {
+		console.log('cancel');
+		$scope.creatingCategory = false;
 	}
 
 	function isCreating() {
