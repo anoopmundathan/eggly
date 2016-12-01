@@ -31,38 +31,50 @@
 			<div class="bookmark">
 				<ul>
 					<li ng-repeat="bookmark in bookmarks | filter:{category:currentCategory.name}">
-						<button ng-click="editCategory(bookmark)">edit</button>
+						<button ng-click="startEditing(bookmark)">edit</button>
 						<label for=""> {{bookmark.title}}</label>
 					</li>
 				</ul>
-				<hr>
-
-				<!-- Create New Book Mark -->
-				<div>
-					<a href="" ng-show="currentCategory" ng-click="createCategory()">+ Create Bookmark</a>
-				</div>
 				
-				<!-- New Bookmark -->
-				<div ng-if="creatingCategory">
-					<label for="">Title</label>
-					<input type="text">
-					<label for="">URL</label>
-					<input type="text">
-					<button>Create</button>
-					<a href="" ng-click="cancelCreating">Cancel</a>
+				<hr/>
+				
+				<!-- Creating-->
+
+				<div ng-if="shouldShowCreating()">
+					<button type="button" ng-click="startCreating()">+ Create Bookmark</button>
+					<div ng-if="isCreating">
+						<div>
+							<label for="newBookmarkTitle">Bookmark Title</label>
+							<input type="text" id="newBookmarkTitle" ng-model="newBookmark.title">
+						</div>
+						
+						<div>
+							<label for="newBookmarkURL">Bookmark URL</label>
+							<input type="text" id="newBookmarkURL" ng-model="newBookmark.url">
+						</div>
+						<button ng-click="createBookmark(newBookmark)">Create</button>
+						<button ng-click="cancelCreating()">Cancel</button>
+					</div>
+				</div> <!-- End of create -->
+
+				<!-- Editing-->
+
+				<hr/>
+				<div ng-if="shouldShowEditing()">
+					Edit Bookmark
+					<div>
+						<label for="BookmarkTitle">Bookmark Title</label>
+						<input type="text" id="bookmarkTitle" ng-model="edit.title">
+					</div>
+						
+					<div>
+						<label for="BookmarkURL">Bookmark URL</label>
+						<input type="text" id="bookmarkURL" ng-model="edit.url">
+					</div>
+
+					<button type="button" ng-click="cancelEditing()">Cancel</button>
 				</div>
 
-				<div ng-if="editingCategory">
-					<label for="">Title</label><br>
-					<input type="text" ng-model="bookmark.title">
-					<label for="">URL</label>
-					<input type="text" ng-model="bookmark.url">
-					<button>Edit</button>
-					<button>Cancel</button>
-				</div>
-
-			</div> <!-- End of bookmark -->
-			
 		</div> <!-- End of box -->
 		</div> <!-- End of container -->
 		

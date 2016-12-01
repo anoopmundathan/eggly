@@ -24,38 +24,51 @@ angular.module('eggApp', [])
 	];
 
 	$scope.currentCategory = null;
-	$scope.editingCategory = false;
-	$scope.creatingCategory = false;
 
-	function isEditing() {
-		return $scope.editingCategory;
+	$scope.isEditing = false;
+	$scope.isCreating = false;
+
+	function startEditing(bookmark) {
+		$scope.isCreating = false;
+		$scope.isEditing = true;
+		
+		$scope.edit = bookmark;
 	}
 
-	function editCategory(bookmark) {
-		$scope.editingCategory = true;
-		$scope.creatingCategory = false;
-
-		$scope.bookmark = bookmark;
-	}
-
-	function createCategory() {
-		$scope.creatingCategory = true;
-		$scope.editingCategory = false;
+	function startCreating() {
+		$scope.isCreating = true;
+		$scope.isEditing = false;
 	}
 
 	function cancelCreating() {
-		console.log('cancel');
-		$scope.creatingCategory = false;
+		$scope.isCreating = false;
 	}
 
-	function isCreating() {
-		return $scope.creatingCategory;
+	function cancelEditing() {
+		$scope.isEditing = false;
+	}
+
+	function shouldShowCreating() {
+		return $scope.currentCategory && !$scope.isEditing;
+	}
+
+	function shouldShowEditing() {
+		return $scope.isEditing && !$scope.isCreating 
+	}
+
+	function createBookmark(newBookmark) {
+		newBookmark.id = $scope.bookmarks.length;
+		$scope.bookmarks.push(newBookmark);
+	}
+
+	function editBookmark() {
+
 	}
 
 	function setCurrentCategory(category) {
 		$scope.currentCategory = category;
-		$scope.editingCategory = false;
-		$scope.creatingCategory = false;
+		cancelCreating();
+		cancelEditing();
 	}
 
 	function isCurrentCategorySelected(category) {
@@ -64,9 +77,16 @@ angular.module('eggApp', [])
 
 	$scope.setCurrentCategory = setCurrentCategory;
 	$scope.isCurrentCategorySelected = isCurrentCategorySelected;
-	$scope.isCreating = isCreating;
-	$scope.isEditing = isEditing;
-	$scope.createCategory = createCategory;
-	$scope.editCategory = editCategory;
+	
+	$scope.startCreating = startCreating;
+	$scope.startEditing = startEditing;
 
+	$scope.cancelEditing = cancelEditing;
+	$scope.cancelCreating = cancelCreating;
+	
+	$scope.shouldShowEditing = shouldShowEditing;
+	$scope.shouldShowCreating = shouldShowCreating;
+
+	$scope.createBookmark = createBookmark;
+	$scope.editBookmark = editBookmark;
 });
